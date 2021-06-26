@@ -24,7 +24,7 @@ old_height = NaN;
 old_center = [0,0];
 new_center = [0,0];
 xyz = [];
-for lidar_frame_i = 1:960
+for lidar_frame_i = 1:100
     points_vector = read_pcd("./kitti_gt/00_kitti_pcd", lidar_frame_i);
     
     gt_pose_i = gt_pose(lidar_frame_i,:);
@@ -57,7 +57,6 @@ for lidar_frame_i = 1:960
     % xlabel('x');
     % ylabel('y');
     % axis equal;
-    % pause(1);
     % hold on;
 
     % update elevation height
@@ -67,14 +66,12 @@ for lidar_frame_i = 1:960
       x_vector,y_vector,z_vector,old_height,old_center,new_center);
     old_height = grid_height;
     old_center = new_center;
-    
-    disp(new_center);
 
     % visualize mesh
     x_mesh_vector = (x_range(1)+new_center(1) : grid_resolution : x_range(2)+new_center(1)-grid_resolution);
     y_mesh_vector = (y_range(1)+new_center(2) : grid_resolution : y_range(2)+new_center(2)-grid_resolution);
-    visualize_mesh(x_mesh_vector,y_mesh_vector,grid_height, covariance);
-    pause(0.001)
+    visualize_mesh(x_mesh_vector,y_mesh_vector,grid_height);
+    pause(0.0001)
 
 end
 
